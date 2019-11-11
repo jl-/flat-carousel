@@ -1,7 +1,8 @@
 {
   "name": "flat-carousel",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.1",
   "description": "tiny react carousel component",
+  "main": "build/index.js",
   "scripts": {
     "dev": "parcel demo/index.html",
     "build": "rollup -c"
