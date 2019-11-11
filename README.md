@@ -2,6 +2,12 @@
 ## FlatCarousel
 > a tiny carousel component for react.
 
+## Features
+- no dependency, tinnnnnny bundled
+- support autoplay
+- transition done with raf and tweening.
+- infinite loop without duplicating the first&last item
+
 ## Demo
 ```
 import Carousel from 'flat-carousel';
