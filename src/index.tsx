@@ -37,12 +37,11 @@ export default React.memo((props: CarouselProps) => {
     const [currentIndex, setCurrentIndex] = useState(swipeOptions.initialIndex);
 
     useEffect(() => {
-        if (!swiper.current && swiperRoot.current) {
-            swiper.current = new Swiper(swiperRoot.current, {
-                ...swipeOptions,
-                onPageChange: setCurrentIndex
-            });
-        }
+        // @ts-ignore
+        swiper.current = new Swiper(swiperRoot.current, {
+            ...swipeOptions,
+            onPageChange: setCurrentIndex
+        });
     }, []);
 
     return (
