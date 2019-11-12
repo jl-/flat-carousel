@@ -31776,410 +31776,301 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../src/tween.ts":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"../build/index.js":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var Status;
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-(function (Status) {
-  Status[Status["IDLE"] = 1] = "IDLE";
-  Status[Status["EASING"] = 2] = "EASING";
-})(Status || (Status = {}));
-
-var outQunit = function outQunit(n) {
-  return --n * n * n * n * n + 1;
-};
-
-var Tween = function () {
-  function Tween(options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    this._to = 0;
-    this._from = 0;
-    this.status = Status.IDLE;
-    this.tick = this.tick.bind(this);
-    this._easing = options.easing || outQunit;
-    this._duration = options.duration || 300;
+function ___$insertStyle(t) {
+  if (t && "undefined" != typeof window) {
+    var e = document.createElement("style");
+    return e.setAttribute("type", "text/css"), e.innerHTML = t, document.head.appendChild(e), t;
   }
-
-  Tween.prototype.from = function (value) {
-    return this._from = value, this;
-  };
-
-  Tween.prototype.to = function (value) {
-    return this._to = value, this;
-  };
-
-  Tween.prototype.duration = function (ms) {
-    if (ms === void 0) {
-      ms = 300;
-    }
-
-    return this._duration = ms, this;
-  };
-
-  Tween.prototype.stop = function (cb) {
-    if (this._raf) {
-      cancelAnimationFrame(this._raf);
-      this._raf = undefined;
-    }
-
-    this.status = Status.IDLE;
-
-    if (typeof cb === 'function') {
-      cb(this._to, this._from);
-    }
-
-    return this;
-  };
-
-  Tween.prototype.tick = function (iterate, done) {
-    var _this = this;
-
-    var startTime;
-
-    var _a = this,
-        _from = _a._from,
-        _to = _a._to,
-        _easing = _a._easing,
-        _duration = _a._duration;
-
-    var tick = function tick(now) {
-      startTime = startTime || now;
-      var elapsed = now - startTime;
-      var progress = Math.min(elapsed / _duration, 1);
-
-      if (progress <= 1) {
-        iterate(_from + (_to - _from) * _easing(progress));
-      }
-
-      if (_this.status === Status.EASING) {
-        if (progress >= 1) {
-          _this.stop(done);
-        } else {
-          _this._raf = requestAnimationFrame(tick);
-        }
-      }
-    };
-
-    this.stop();
-    this.status = Status.EASING;
-    this._raf = requestAnimationFrame(tick);
-  };
-
-  return Tween;
-}();
-
-var _default = Tween;
-exports.default = _default;
-},{}],"../src/utils.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.coerceEventOptions = coerceEventOptions;
-exports.on = on;
-exports.off = off;
-exports.isPassiveEventSupported = void 0;
-
-var isPassiveEventSupported = function () {
-  var isSupported = false;
-
-  try {
-    window.addEventListener('passive', null, {
-      get passive() {
-        return isSupported = true;
-      }
-
-    });
-  } catch (err) {}
-
-  return function () {
-    return isSupported;
-  };
-}();
-
-exports.isPassiveEventSupported = isPassiveEventSupported;
-
-function coerceEventOptions(options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var passive = isPassiveEventSupported();
-  return passive ? options : Boolean(options.capture);
 }
 
-function on(el, eventName, handler, options) {
-  el.addEventListener(eventName, handler, coerceEventOptions(options));
+function _interopDefault(t) {
+  return t && "object" == _typeof(t) && "default" in t ? t.default : t;
 }
 
-function off(el, eventName, handler, options) {
-  el.removeEventListener(eventName, handler, coerceEventOptions(options));
-}
-},{}],"../src/swiper.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _tween = _interopRequireDefault(require("./tween"));
-
-var _utils = require("./utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+var Status,
+    React = require("react"),
+    React__default = _interopDefault(React),
+    _assign = function __assign() {
+  return (_assign = Object.assign || function (t) {
+    for (var e, n = 1, i = arguments.length; n < i; n++) {
+      for (var o in e = arguments[n]) {
+        Object.prototype.hasOwnProperty.call(e, o) && (t[o] = e[o]);
       }
     }
 
     return t;
-  };
-
-  return __assign.apply(this, arguments);
+  }).apply(this, arguments);
 };
+
+function __rest(t, e) {
+  var n = {};
+
+  for (var i in t) {
+    Object.prototype.hasOwnProperty.call(t, i) && e.indexOf(i) < 0 && (n[i] = t[i]);
+  }
+
+  if (null != t && "function" == typeof Object.getOwnPropertySymbols) {
+    var o = 0;
+
+    for (i = Object.getOwnPropertySymbols(t); o < i.length; o++) {
+      e.indexOf(i[o]) < 0 && Object.prototype.propertyIsEnumerable.call(t, i[o]) && (n[i[o]] = t[i[o]]);
+    }
+  }
+
+  return n;
+}
+
+function __read(t, e) {
+  var n = "function" == typeof Symbol && t[Symbol.iterator];
+  if (!n) return t;
+  var i,
+      o,
+      a = n.call(t),
+      r = [];
+
+  try {
+    for (; (void 0 === e || 0 < e--) && !(i = a.next()).done;) {
+      r.push(i.value);
+    }
+  } catch (t) {
+    o = {
+      error: t
+    };
+  } finally {
+    try {
+      i && !i.done && (n = a.return) && n.call(a);
+    } finally {
+      if (o) throw o.error;
+    }
+  }
+
+  return r;
+}
+
+!function (t) {
+  t[t.IDLE = 1] = "IDLE", t[t.EASING = 2] = "EASING";
+}(Status = Status || {});
+
+var outQunit = function outQunit(t) {
+  return --t * t * t * t * t + 1;
+},
+    Tween = function () {
+  function t(t) {
+    void 0 === t && (t = {}), this._to = 0, this._from = 0, this.status = Status.IDLE, this.tick = this.tick.bind(this), this._easing = t.easing || outQunit, this._duration = t.duration || 300;
+  }
+
+  return t.prototype.from = function (t) {
+    return this._from = t, this;
+  }, t.prototype.to = function (t) {
+    return this._to = t, this;
+  }, t.prototype.duration = function (t) {
+    return void 0 === t && (t = 300), this._duration = t, this;
+  }, t.prototype.stop = function (t) {
+    return this._raf && (cancelAnimationFrame(this._raf), this._raf = void 0), this.status = Status.IDLE, "function" == typeof t && t(this._to, this._from), this;
+  }, t.prototype.tick = function (i, o) {
+    var a,
+        r = this,
+        t = this,
+        s = t._from,
+        u = t._to,
+        d = t._easing,
+        l = t._duration,
+        c = function c(t) {
+      var e = t - (a = a || t),
+          n = Math.min(e / l, 1);
+      n <= 1 && i(s + (u - s) * d(n)), r.status === Status.EASING && (1 <= n ? r.stop(o) : r._raf = requestAnimationFrame(c));
+    };
+
+    this.stop(), this.status = Status.EASING, this._raf = requestAnimationFrame(c);
+  }, t;
+}(),
+    isPassiveEventSupported = function () {
+  var t = !1;
+
+  try {
+    window.addEventListener("passive", null, {
+      get passive() {
+        return t = !0;
+      }
+
+    });
+  } catch (t) {}
+
+  return function () {
+    return t;
+  };
+}();
+
+function coerceEventOptions(t) {
+  return void 0 === t && (t = {}), isPassiveEventSupported() ? t : Boolean(t.capture);
+}
+
+function on(t, e, n, i) {
+  t.addEventListener(e, n, coerceEventOptions(i));
+}
+
+function off(t, e, n, i) {
+  t.removeEventListener(e, n, coerceEventOptions(i));
+}
 
 var swipeOptions = {
   initialIndex: 0,
   transitionDuration: 400,
-  infiniteLoop: true,
-  autoplay: true,
-  autoplayInterval: 3000
-};
-var pristineSwipeState = {
+  infiniteLoop: !0,
+  autoplay: !0,
+  autoplayInterval: 3e3
+},
+    pristineSwipeState = {
   dx: 0,
   _dx: 0,
   x: 0,
   y: 0,
-  touchId: undefined,
-  isScrolling: undefined
-};
+  touchId: void 0,
+  isScrolling: void 0
+},
+    Swiper = function () {
+  function t(t, e) {
+    var o = this;
+    this.handleStart = function (t) {
+      var e = o.state,
+          n = t.touches[0];
+      o.state = _assign(_assign({}, e), {
+        x: n.pageX - e.dx,
+        y: n.pageY,
+        touchId: n.identifier
+      }), o.tween.stop(), o.stopAutoplay(), on(o.root, "touchmove", o.handleMove, {
+        passive: !1
+      }), on(o.root, "touchend", o.handleEnd);
+    }, this.handleMove = function (t) {
+      var e = o.findTouch(t.touches);
 
-var Swiper = function () {
-  function Swiper(root, options) {
-    var _this = this;
+      if (e) {
+        var n = e.pageX - o.state.x;
 
-    this.handleStart = function (event) {
-      var state = _this.state;
-      var touch = event.touches[0];
-      _this.state = __assign(__assign({}, state), {
-        x: touch.pageX - state.dx,
-        y: touch.pageY,
-        touchId: touch.identifier
-      });
-
-      _this.tween.stop();
-
-      _this.stopAutoplay();
-
-      (0, _utils.on)(_this.root, 'touchmove', _this.handleMove, {
-        passive: false
-      });
-      (0, _utils.on)(_this.root, 'touchend', _this.handleEnd);
-    };
-
-    this.handleMove = function (event) {
-      var touch = _this.findTouch(event.touches);
-
-      if (!touch) {
-        _this.handleEnd(event);
-
-        return;
-      }
-
-      var dx = touch.pageX - _this.state.x;
-
-      if (typeof _this.state.isScrolling === 'undefined') {
-        var dy = touch.pageY - _this.state.y;
-        _this.state.isScrolling = Math.abs(dx) < Math.abs(dy);
-      }
-
-      if (!_this.state.isScrolling) {
-        event.preventDefault();
-
-        _this.translate(dx);
-      }
-    };
-
-    this.handleEnd = function (event) {
-      (0, _utils.off)(_this.root, 'touchmove', _this.handleMove);
-      (0, _utils.off)(_this.root, 'touchend', _this.handleEnd);
-
-      var touch = _this.findTouch(event.changedTouches);
-
-      if (!touch) {
-        return;
-      }
-
-      var dx = 0;
-      var state = _this.state;
-
-      var nextIndex = _this.getNextIndex(state.dx);
-
-      if (_this.slides[nextIndex] && state.dx * state._dx >= 0 && Math.abs(state.dx) >= 36) {
-        dx = state.dx > 0 ? _this.width : -_this.width;
-      }
-
-      _this.tween.from(_this.state.dx).to(dx).tick(_this.translate, _this.onTweenEnd);
-    };
-
-    this.translate = function (dx) {
-      _this.state._dx = dx - _this.state.dx;
-      _this.state.dx = dx;
-
-      if (Math.abs(_this.state.dx) > _this.width) {
-        var nextIndex_1 = _this.getNextIndex(_this.state.dx);
-
-        if (_this.slides[nextIndex_1]) {
-          _this.changeCurrentIndex(nextIndex_1);
-
-          _this.state.dx = _this.state.dx % _this.width;
-          _this.state.x = (_this.state.x + _this.width) % _this.width;
+        if (void 0 === o.state.isScrolling) {
+          var i = e.pageY - o.state.y;
+          o.state.isScrolling = Math.abs(n) < Math.abs(i);
         }
+
+        o.state.isScrolling || (t.preventDefault(), o.translate(n));
+      } else o.handleEnd(t);
+    }, this.handleEnd = function (t) {
+      if (off(o.root, "touchmove", o.handleMove), off(o.root, "touchend", o.handleEnd), o.findTouch(t.changedTouches)) {
+        var e = 0,
+            n = o.state,
+            i = o.getNextIndex(n.dx);
+        o.slides[i] && 0 <= n.dx * n._dx && 36 <= Math.abs(n.dx) && (e = 0 < n.dx ? o.width : -o.width), o.tween.from(o.state.dx).to(e).tick(o.translate, o.onTweenEnd);
+      }
+    }, this.translate = function (t) {
+      if (o.state._dx = t - o.state.dx, o.state.dx = t, Math.abs(o.state.dx) > o.width) {
+        var e = o.getNextIndex(o.state.dx);
+        o.slides[e] && (o.changeCurrentIndex(e), o.state.dx = o.state.dx % o.width, o.state.x = (o.state.x + o.width) % o.width);
       }
 
-      var nextIndex = _this.getNextIndex(_this.state.dx);
+      var n = o.getNextIndex(o.state.dx);
 
-      if (!_this.slides[nextIndex]) {
-        _this.moveSlide(_this.currentIndex, _this.state.dx * 0.2);
+      if (o.slides[n]) {
+        o.moveSlide(o.currentIndex, o.state.dx), n !== o.currentIndex && o.moveSlide(n, o.state.dx + (0 < o.state.dx ? -o.width : o.width));
 
-        return;
-      }
-
-      _this.moveSlide(_this.currentIndex, _this.state.dx);
-
-      if (nextIndex !== _this.currentIndex) {
-        _this.moveSlide(nextIndex, _this.state.dx + (_this.state.dx > 0 ? -_this.width : _this.width));
-      }
-
-      for (var i = _this.slides.length - 1; i >= 0; i--) {
-        if (i !== nextIndex && i !== _this.currentIndex) {
-          _this.moveSlide(i, _this.width);
+        for (var i = o.slides.length - 1; 0 <= i; i--) {
+          i !== n && i !== o.currentIndex && o.moveSlide(i, o.width);
         }
-      }
-    };
-
-    this.onTweenEnd = function (to) {
-      _this.translate(to);
-
-      _this.state = __assign({}, pristineSwipeState);
-
-      _this.changeCurrentIndex(_this.getNextIndex(to));
-
-      _this.startAutoplay();
-    };
-
-    this.root = root;
-    this.width = root.offsetWidth;
-    this.options = __assign(__assign({}, swipeOptions), options);
-    this.slides = Array.from(root.children);
-    this.positions = new Array(this.slides.length);
-    this.currentIndex = this.getIndex(this.options.initialIndex);
-    this.tween = new _tween.default({
+      } else o.moveSlide(o.currentIndex, .2 * o.state.dx);
+    }, this.onTweenEnd = function (t) {
+      o.translate(t), o.state = _assign({}, pristineSwipeState), o.changeCurrentIndex(o.getNextIndex(t)), o.startAutoplay();
+    }, this.root = t, this.width = t.offsetWidth, this.options = _assign(_assign({}, swipeOptions), e), this.slides = Array.from(t.children), this.positions = new Array(this.slides.length), this.currentIndex = this.getIndex(this.options.initialIndex), this.tween = new Tween({
       duration: this.options.transitionDuration
-    });
-    this.state = __assign({}, pristineSwipeState);
+    }), this.state = _assign({}, pristineSwipeState), this.slides.length < 2 && (this.options.infiniteLoop = !1), this.options.infiniteLoop || (this.options.autoplay = !1);
 
-    if (this.slides.length < 2) {
-      this.options.infiniteLoop = false;
+    for (var n = 0; n < this.slides.length; n++) {
+      var i = this.slides[n];
+      i.style.left = "0px", i.style.width = this.width + "px", this.moveSlide(n, this.width);
     }
 
-    if (!this.options.infiniteLoop) {
-      this.options.autoplay = false;
-    }
-
-    for (var i = 0; i < this.slides.length; i++) {
-      var slide = this.slides[i];
-      slide.style.left = '0px';
-      slide.style.width = this.width + "px";
-      this.moveSlide(i, this.width);
-    }
-
-    if (this.slides.length > 1) {
-      this.startAutoplay();
-      (0, _utils.on)(root, 'touchstart', this.handleStart);
-    }
-
-    this.moveSlide(this.currentIndex, 0);
+    1 < this.slides.length && (this.startAutoplay(), on(t, "touchstart", this.handleStart)), this.moveSlide(this.currentIndex, 0);
   }
 
-  Swiper.prototype.getIndex = function (index) {
-    var slides = this.root.children;
-    return (index + slides.length) % slides.length;
-  };
-
-  Swiper.prototype.getNextIndex = function (dx) {
-    var index = this.currentIndex + (dx > 0 ? -1 : dx < 0 ? 1 : 0);
-    return this.options.infiniteLoop ? this.getIndex(index) : index;
-  };
-
-  Swiper.prototype.findTouch = function (_touches) {
-    var touchId = this.state.touchId;
-    return Array.from(_touches).find(function (touch) {
-      return touch.identifier === touchId;
+  return t.prototype.getIndex = function (t) {
+    var e = this.root.children;
+    return (t + e.length) % e.length;
+  }, t.prototype.getNextIndex = function (t) {
+    var e = this.currentIndex + (0 < t ? -1 : t < 0 ? 1 : 0);
+    return this.options.infiniteLoop ? this.getIndex(e) : e;
+  }, t.prototype.findTouch = function (t) {
+    var e = this.state.touchId;
+    return Array.from(t).find(function (t) {
+      return t.identifier === e;
     });
-  };
-
-  Swiper.prototype.moveSlide = function (idx, offset) {
-    var index = this.getIndex(idx);
-    var slide = this.slides[index];
-
-    if (this.positions[index] !== offset) {
-      this.positions[index] = offset;
-      slide.style.webkitTransform = "translateX(" + offset + "px)";
-    }
-  };
-
-  Swiper.prototype.changeCurrentIndex = function (index) {
-    this.currentIndex = index;
-
-    if (typeof this.options.onPageChange === 'function') {
-      this.options.onPageChange(this.currentIndex);
-    }
-  };
-
-  Swiper.prototype.startAutoplay = function () {
-    var _this = this;
-
-    if (!this.options.autoplay) {
-      return;
-    }
-
-    this.autoplayTimer = setTimeout(function () {
-      _this.stopAutoplay();
-
-      _this.tween.from(0).to(-_this.width).tick(_this.translate, _this.onTweenEnd);
-    }, this.options.autoplayInterval);
-  };
-
-  Swiper.prototype.stopAutoplay = function () {
-    if (this.autoplayTimer) {
-      clearTimeout(this.autoplayTimer);
-      this.autoplayTimer = undefined;
-    }
-  };
-
-  return Swiper;
+  }, t.prototype.moveSlide = function (t, e) {
+    var n = this.getIndex(t),
+        i = this.slides[n];
+    this.positions[n] !== e && (this.positions[n] = e, i.style.webkitTransform = "translateX(" + e + "px)");
+  }, t.prototype.changeCurrentIndex = function (t) {
+    this.currentIndex = t, "function" == typeof this.options.onPageChange && this.options.onPageChange(this.currentIndex);
+  }, t.prototype.startAutoplay = function () {
+    var t = this;
+    this.options.autoplay && (this.autoplayTimer = setTimeout(function () {
+      t.stopAutoplay(), t.tween.from(0).to(-t.width).tick(t.translate, t.onTweenEnd);
+    }, this.options.autoplayInterval));
+  }, t.prototype.stopAutoplay = function () {
+    this.autoplayTimer && (clearTimeout(this.autoplayTimer), this.autoplayTimer = void 0);
+  }, t;
 }();
 
-var _default = Swiper;
-exports.default = _default;
-},{"./tween":"../src/tween.ts","./utils":"../src/utils.ts"}],"../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+___$insertStyle(".carousel {\n  width: 100vw;\n}\n.carousel, .carousel__main {\n  position: relative;\n  overflow: hidden;\n}\n.carousel__item {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  will-change: transform;\n  background-size: cover;\n  background-position: center;\n  background-repeat: no-repeat;\n}\n.carousel__dots {\n  position: absolute;\n  bottom: 8px;\n  left: 0;\n  right: 0;\n  font-size: 0;\n  text-align: center;\n}\n.carousel__dot {\n  display: inline-block;\n  width: 5px;\n  height: 5px;\n  border-radius: 5px;\n  background-color: rgba(255, 255, 255, 0.4);\n}\n.carousel__dot--active {\n  background-color: #fff;\n}\n.carousel__dot:only-child {\n  display: none;\n}\n.carousel__dot:nth-child(n+2) {\n  margin-left: 5px;\n}");
+
+var cx = function cx() {
+  for (var t = [], e = 0; e < arguments.length; e++) {
+    t[e] = arguments[e];
+  }
+
+  return t.filter(Boolean).join(" ");
+},
+    CarouselMain = React__default.memo(React__default.forwardRef(function (t, e) {
+  var n = t.children;
+  return React__default.createElement("div", {
+    ref: e,
+    className: "carousel__main"
+  }, React__default.Children.map(n, function (t, e) {
+    return React__default.isValidElement(t) ? React__default.cloneElement(t, {
+      key: e,
+      className: cx(t.props.className, "carousel__item")
+    }) : null;
+  }));
+})),
+    index = React__default.memo(function (t) {
+  var e = t.children,
+      n = __rest(t, ["children"]),
+      i = React.useRef(null),
+      o = React.useRef(null),
+      a = __read(React.useState(n.initialIndex), 2),
+      r = a[0],
+      s = a[1];
+
+  return React.useEffect(function () {
+    i.current = new Swiper(o.current, _assign(_assign({}, n), {
+      onPageChange: s
+    }));
+  }, []), React__default.createElement("div", {
+    className: "carousel"
+  }, React__default.createElement(CarouselMain, {
+    ref: o
+  }, e), React__default.createElement("div", {
+    className: "carousel__dots"
+  }, React__default.Children.map(e, function (t, e) {
+    return React__default.createElement("span", {
+      className: cx("carousel__dot", e === r ? "carousel__dot--active" : "")
+    });
+  })));
+});
+
+module.exports = index;
+},{"react":"../node_modules/react/index.js"}],"../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -32246,145 +32137,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel/src/builtins/bundle-url.js"}],"../src/index.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"../src/index.tsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _swiper = _interopRequireDefault(require("./swiper"));
-
-var _react = _interopRequireWildcard(require("react"));
-
-require("./index.scss");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __assign = void 0 && (void 0).__assign || function () {
-  __assign = Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-      s = arguments[i];
-
-      for (var p in s) {
-        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-    }
-
-    return t;
-  };
-
-  return __assign.apply(this, arguments);
-};
-
-var __rest = void 0 && (void 0).__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-
-var __read = void 0 && (void 0).__read || function (o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o),
-      r,
-      ar = [],
-      e;
-
-  try {
-    while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
-      ar.push(r.value);
-    }
-  } catch (error) {
-    e = {
-      error: error
-    };
-  } finally {
-    try {
-      if (r && !r.done && (m = i["return"])) m.call(i);
-    } finally {
-      if (e) throw e.error;
-    }
-  }
-
-  return ar;
-};
-
-var cx = function cx() {
-  var s = [];
-
-  for (var _i = 0; _i < arguments.length; _i++) {
-    s[_i] = arguments[_i];
-  }
-
-  return s.filter(Boolean).join(' ');
-};
-
-var CarouselMain = _react.default.memo(_react.default.forwardRef(function (props, ref) {
-  var children = props.children;
-  return _react.default.createElement("div", {
-    ref: ref,
-    className: "carousel__main"
-  }, _react.default.Children.map(children, function (item, index) {
-    if (!_react.default.isValidElement(item)) {
-      return null;
-    }
-
-    return _react.default.cloneElement(item, {
-      key: index,
-      className: cx(item.props.className, 'carousel__item')
-    });
-  }));
-}));
-
-var _default = _react.default.memo(function (props) {
-  var children = props.children,
-      swipeOptions = __rest(props, ["children"]);
-
-  var swiper = (0, _react.useRef)(null);
-  var swiperRoot = (0, _react.useRef)(null);
-
-  var _a = __read((0, _react.useState)(swipeOptions.initialIndex), 2),
-      currentIndex = _a[0],
-      setCurrentIndex = _a[1];
-
-  (0, _react.useEffect)(function () {
-    swiper.current = new _swiper.default(swiperRoot.current, __assign(__assign({}, swipeOptions), {
-      onPageChange: setCurrentIndex
-    }));
-  }, []);
-  return _react.default.createElement("div", {
-    className: "carousel"
-  }, _react.default.createElement(CarouselMain, {
-    ref: swiperRoot
-  }, children), _react.default.createElement("div", {
-    className: "carousel__dots"
-  }, _react.default.Children.map(children, function (_, index) {
-    return _react.default.createElement("span", {
-      className: cx('carousel__dot', index === currentIndex ? 'carousel__dot--active' : '')
-    });
-  })));
-});
-
-exports.default = _default;
-},{"./swiper":"../src/swiper.ts","react":"../node_modules/react/index.js","./index.scss":"../src/index.scss"}],"index.scss":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel/src/builtins/bundle-url.js"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -32396,7 +32149,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = require("react-dom");
 
-var _src = _interopRequireDefault(require("../src"));
+var _ = _interopRequireDefault(require(".."));
 
 require("./index.scss");
 
@@ -32411,7 +32164,7 @@ var images = [{
 }];
 
 var Demo = function Demo() {
-  return _react.default.createElement(_src.default, null, images.map(function (image, index) {
+  return _react.default.createElement(_.default, null, images.map(function (image, index) {
     return _react.default.createElement("div", {
       key: index,
       className: "demo-item",
@@ -32423,7 +32176,7 @@ var Demo = function Demo() {
 };
 
 (0, _reactDom.render)(_react.default.createElement(Demo, null), document.getElementById('app'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","../src":"../src/index.tsx","./index.scss":"index.scss"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","..":"../build/index.js","./index.scss":"index.scss"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32451,7 +32204,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56744" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65417" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

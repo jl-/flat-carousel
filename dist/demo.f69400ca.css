@@ -1,36 +1,3 @@
-.carousel {
-  width: 100vw; }
-  .carousel, .carousel__main {
-    position: relative;
-    overflow: hidden; }
-  .carousel__item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; }
-  .carousel__dots {
-    position: absolute;
-    bottom: 8px;
-    left: 0;
-    right: 0;
-    font-size: 0;
-    text-align: center; }
-  .carousel__dot {
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.4); }
-    .carousel__dot--active {
-      background-color: #fff; }
-    .carousel__dot:only-child {
-      display: none; }
-    .carousel__dot:nth-child(n+2) {
-      margin-left: 5px; }
-
 * {
   margin: 0;
   padding: 0;
@@ -42,6 +9,9 @@
     border-radius: 4px; }
   .carousel__main {
     height: 110px; }
+
+.demo-item {
+  height: 100px; }
 
 
 /*# sourceMappingURL=/demo.f69400ca.css.map */

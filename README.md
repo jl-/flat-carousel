@@ -3,7 +3,7 @@
 > a tiny carousel component for react.
 
 ## Features
-- no dependency, tinnnnnny bundled
+- no dependency
 - support autoplay
 - transition done with raf and tweening.
 - infinite loop without duplicating the first&last item
