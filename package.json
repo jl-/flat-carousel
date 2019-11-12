@@ -1,6 +1,6 @@
 {
   "name": "flat-carousel",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "tiny react carousel component",
   "main": "build/index.js",
   "style": "build/index.css",

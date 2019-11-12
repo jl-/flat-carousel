@@ -10,13 +10,19 @@ export interface SwipeOptions {
     onPageChange?(index: number): void;
 }
 
+interface TouchPoint {
+    pageX: number;
+    pageY: number;
+    identifier?: number;
+}
+
 interface SwipeState {
     dx: number;
     _dx: number;
     x: number;
     y: number;
-    touchId: number | undefined;
-    isScrolling: boolean | undefined;
+    touchId?: number;
+    isScrolling?: boolean;
 }
 
 const swipeOptions: SwipeOptions = {
@@ -83,6 +89,7 @@ export default class Swiper {
         if (this.slides.length > 1) {
             this.startAutoplay();
             on(root, 'touchstart', this.handleStart);
+            on(root, 'mousedown', this.handleStart);
         }
 
         this.moveSlide(this.currentIndex, 0);
@@ -98,14 +105,25 @@ export default class Swiper {
         return this.options.infiniteLoop ? this.getIndex(index) : index;
     }
 
-    private findTouch(_touches: TouchList) {
-        const touchId = this.state.touchId;
-        return Array.from(_touches).find(touch => touch.identifier === touchId);
+    private findTouch(event: Event, changed: boolean = false, touchId?: number): TouchPoint {
+        const e = event as TouchEvent;
+        if (!Boolean(e.touches || e.changedTouches)) {
+            return {
+                pageX: (event as MouseEvent).pageX,
+                pageY: (event as MouseEvent).pageY,
+                identifier: undefined
+            };
+        }
+        const touches = changed ? e.changedTouches : e.touches;
+        if (!touchId) {
+            return touches[0];
+        }
+        return Array.from(touches).find(touch => touch.identifier === touchId) as TouchPoint;
     }
 
     private handleStart = (event: Event) => {
         const state = this.state;
-        const touch = (event as TouchEvent).touches[0];
+        const touch = this.findTouch(event);
         this.state = {
             ...state,
             x: touch.pageX - state.dx,
@@ -117,10 +135,12 @@ export default class Swiper {
         this.stopAutoplay();
         on(this.root, 'touchmove', this.handleMove, { passive: false });
         on(this.root, 'touchend', this.handleEnd);
+        on(this.root, 'mousemove', this.handleMove, { passive: false });
+        on(this.root, 'mouseup', this.handleEnd);
     };
 
     private handleMove = (event: Event) => {
-        const touch = this.findTouch((event as TouchEvent).touches);
+        const touch = this.findTouch(event, false, this.state.touchId)
         if (!touch) {
             this.handleEnd(event);
             return;
@@ -141,8 +161,10 @@ export default class Swiper {
     private handleEnd = (event: Event) => {
         off(this.root, 'touchmove', this.handleMove);
         off(this.root, 'touchend', this.handleEnd);
+        off(this.root, 'mousemove', this.handleMove);
+        off(this.root, 'mouseup', this.handleEnd);
 
-        const touch = this.findTouch((event as TouchEvent).changedTouches);
+        const touch = this.findTouch(event, true, this.state.touchId);
         if (!touch) {
             return;
         }

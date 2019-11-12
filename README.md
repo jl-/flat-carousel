@@ -8,6 +8,7 @@
 ## Features
 - no dependency
 - support autoplay
+- support touch and mouse device
 - transition done with raf and tweening.
 - infinite loop without duplicating the first&last item
 
