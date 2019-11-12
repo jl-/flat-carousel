@@ -1,5 +1,5 @@
 .cache/
-.dist/
+dist/
 demo/
 node_modules/
 yarn-error.log
